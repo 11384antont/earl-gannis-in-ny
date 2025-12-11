@@ -1,0 +1,267 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*<weight>: Use a value from 400 to 700
+<uniquifier>: Use a unique and descriptive class name
+
+.domine-<uniquifier> {
+  font-family: "Domine", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}*/
+h1,
+h2,
+h3 {
+    font-family: "Domine", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
+p {
+    font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    background-color: #E7E7E7;
+    color: #343434;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+/* Display screen */
+@media screen and (min-width: 1200px) {
+    .wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        /* Optional, but good practice for clarity */
+    }
+}
+
+/* Tablet */
+@media screen and (min-width: 768px)and (max-width: 1199px) {
+    .wrapper {
+        max-width: 768px;
+        margin: 0 auto;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+    .wrapper {
+        max-width: 100%;
+        margin: 10px 20px;
+    }
+}
+
+.horizontal {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.centerAlign {
+    display: flex;
+    justify-content: center;
+    /* Centers content horizontally */
+    align-items: center;
+    /* Centers content vertically */
+    height: 100vh;
+    /* Ensures the container takes up the full screen height */
+    flex-direction: column;
+    /* Stacks image and text vertically */
+    gap: 20px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.leftAlign {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #343434;
+    color: #E7E7E7;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 10px 24px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.tag {
+    background-color: #343434;
+    color: #E7E7E7;
+    padding: 8px 12px;
+    border-radius: 9999px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    border: solid;
+}
+
+.topAlign {
+    align-items: flex-start;
+}
+
+.bottomAlign {
+    align-items: flex-end;
+}
+
+.scheduleDate {
+    margin-bottom: 32px;
+}
+
+.scheduleList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 12px 0;
+}
+
+.scheduleBlock {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0px;
+    border-bottom: 0.5px solid #343434;
+    border-top: 0.5px solid #343434;
+
+}
+
+/* .scheduleContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    min-width: 200px;
+} */
+
+
+.topnav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding-block: 1.5rem; */
+
+    button {
+        background: none;
+        border: none;
+        padding: 0;
+
+        @media (width >=40em) {
+            display: none;
+        }
+
+        /* close btn이 안사라짐 */
+    }
+
+    .topnav__open[aria-expanded='true'] {
+        +.topnav__menu {
+            translate: 0;
+        }
+    }
+
+    .topnav__close {
+        display: block;
+        margin-inline-start: auto;
+        margin-block-end: 2.5rem;
+
+        /* img {
+            width: 2.5rem;
+        } */
+    }
+
+    .topnav__menu {
+        @media (width < 40em) {
+            position: fixed;
+            inset: 0;
+            padding: 1.5rem;
+            background-color: #9282e3;
+            translate: 100vw 0;
+            transition: translate 0.5s ease-in-out;
+        }
+
+        button {
+            @media (width>=40em) {
+                display: none;
+            }
+        }
+
+        /* close btn 안사라져서 여기에 코드 추가함 */
+    }
+
+    .topnav__links {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+
+        @media (width<40em) {
+            flex-direction: column;
+        }
+    }
+
+    .topnav__items {
+        list-style-type: none;
+    }
+
+}
+
+input {
+    display: none;
+}
+
+input+div label {
+    padding: 10px;
+    cursor: pointer;
+}
+
+input:checked+div {
+    .radioImg {
+        background-image: url('img/check.svg');
+    }
+}
+
+label {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+input+div {
+    position: relative;
+}
+
+.radioImg {
+    width: 20px;
+    height: 20px;
+    background-image: url('img/unchecked.svg');
+    background-size: cover;
+}
