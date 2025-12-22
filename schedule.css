@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+ul {
+    list-style: none;
+}
+
 h1,
 h2,
 h3 {
@@ -55,13 +59,55 @@ body {
     }
 }
 
+.horizontal {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
 .centerAlign {
     display: flex;
     justify-content: center;
+    /* Centers content horizontally */
     align-items: center;
+    /* Centers content vertically */
     height: 100vh;
+    /* Ensures the container takes up the full screen height */
     flex-direction: column;
+    /* Stacks image and text vertically */
     gap: 20px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.leftAlign {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #343434;
+    color: #E7E7E7;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 10px 24px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.tag {
+    background-color: #343434;
+    color: #E7E7E7;
+    padding: 8px 12px;
+    border-radius: 9999px;
 }
 
 a {
@@ -75,6 +121,33 @@ a {
     border: solid;
 }
 
+.topAlign {
+    align-items: flex-start;
+}
+
+.bottomAlign {
+    align-items: flex-end;
+}
+
+.scheduleDate {
+    margin-bottom: 32px;
+}
+
+.scheduleList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 12px 0;
+}
+
+.scheduleBlock {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0px;
+    border-bottom: 0.5px solid #343434;
+    border-top: 0.5px solid #343434;
+
+}
 
 /* Footer */
 footer {
