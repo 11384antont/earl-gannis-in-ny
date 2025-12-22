@@ -3,6 +3,20 @@
     padding: 0;
 }
 
+ul {
+    list-style: none;
+}
+
+footer {
+    border-top: 0.5px solid #343434;
+    padding: 20px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
 /*<weight>: Use a value from 400 to 700
 <uniquifier>: Use a unique and descriptive class name
 
@@ -42,7 +56,7 @@ body {
 @media screen and (min-width: 1200px) {
     .wrapper {
         max-width: 1200px;
-        margin: 0 auto;
+        margin: 100px auto;
         /* Optional, but good practice for clarity */
     }
 }
@@ -51,7 +65,7 @@ body {
 @media screen and (min-width: 768px)and (max-width: 1199px) {
     .wrapper {
         max-width: 768px;
-        margin: 0 auto;
+        margin: 60px auto;
     }
 }
 
@@ -59,7 +73,7 @@ body {
 @media screen and (max-width: 767px) {
     .wrapper {
         max-width: 100%;
-        margin: 10px 20px;
+        margin: px 20px;
     }
 }
 
@@ -161,107 +175,3 @@ a {
     max-width: 1200px;
     min-width: 200px;
 } */
-
-
-.topnav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* padding-block: 1.5rem; */
-
-    button {
-        background: none;
-        border: none;
-        padding: 0;
-
-        @media (width >=40em) {
-            display: none;
-        }
-
-        /* close btn이 안사라짐 */
-    }
-
-    .topnav__open[aria-expanded='true'] {
-        +.topnav__menu {
-            translate: 0;
-        }
-    }
-
-    .topnav__close {
-        display: block;
-        margin-inline-start: auto;
-        margin-block-end: 2.5rem;
-
-        /* img {
-            width: 2.5rem;
-        } */
-    }
-
-    .topnav__menu {
-        @media (width < 40em) {
-            position: fixed;
-            inset: 0;
-            padding: 1.5rem;
-            background-color: #9282e3;
-            translate: 100vw 0;
-            transition: translate 0.5s ease-in-out;
-        }
-
-        button {
-            @media (width>=40em) {
-                display: none;
-            }
-        }
-
-        /* close btn 안사라져서 여기에 코드 추가함 */
-    }
-
-    .topnav__links {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-        margin: 0;
-        padding: 0;
-
-        @media (width<40em) {
-            flex-direction: column;
-        }
-    }
-
-    .topnav__items {
-        list-style-type: none;
-    }
-
-}
-
-input {
-    display: none;
-}
-
-input+div label {
-    padding: 10px;
-    cursor: pointer;
-}
-
-input:checked+div {
-    .radioImg {
-        background-image: url('img/check.svg');
-    }
-}
-
-label {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-input+div {
-    position: relative;
-}
-
-.radioImg {
-    width: 20px;
-    height: 20px;
-    background-image: url('img/unchecked.svg');
-    background-size: cover;
-}

@@ -14,28 +14,24 @@
 </head>
 
 <body>
-    <header class="topnav wrapper">
-        <a href="index.html">
-            <img src="img/Header-logo.svg" alt="" width="74" height="30"></a>
-        <nav>
-            <span id="nav-label" hidden>Navigation</span>
-            <button id="btnOpen" class="topnav__open" aria-expanded="false" aria-labelledby="nav-label">
-                <img src="img/menu.svg" alt="" width="24" height="24">
-            </button>
-            <div class="topnav__menu" role="dialog" aria-labelledby="nav-label">
-                <button class="topnav__close" id="btnClose" aria-label="Close">
-                    <img src="/img/close.svg" alt="" width="24" height="24">
-                </button>
-                <ul class="topnav__links">
-                    <li class="topnav__items">
-                        <a href="schedule.html" class="topnav__links">Schedule</a>
-                    </li>
-                    <li class="topnav__items">
-                        <a href="photoBooth.html" class="topnav__links">Photo booth</a>
+    <header class="header">
+        <div class="header__content">
+            <a href="#" class="logo"><img src="img/Header-logo.svg" alt="" width="74" height="30"></a>
+
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#" class="nav__link">Schedule</a>
+                        <a href="#" class="nav__link">Photo Booth</a>
                     </li>
                 </ul>
+            </nav>
+            <div class="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
             </div>
-        </nav>
+        </div>
     </header>
     <main>
         <div class="wrapper centerAlign"> <!--Title should morph to heading-->
@@ -44,6 +40,11 @@
             <h5>2025</h5>
         </div>
     </main>
+    <footer>
+        <p><a href="https://www.instagram.com/yeonseo.dsgn?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Created
+                by
+                @yeonseo.dsgn</a></p>
+    </footer>
 </body>
 
 </html>

@@ -4,48 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Earl Gannis in New York: Photo Booth</title>
+    <title>Photo Booth</title>
+    <link rel="stylesheet" href="camera.css">
 </head>
 
 <body>
-    <div> <!--Menu header-->
-        <a href="index.html">Earl Gannis in New York</a>
-        <a href="index.html">Home</a>
-        <a href="schedule.html">Schedule</a>
-    </div>
-    <div class="wrapper"><!--Schdule list-->
-        <div class="scheduleDate horizontal"><!--Day header-->
-            <h1>Select a location</h1>
-        </div>
-        <div class="scheduleList">
-            <!--One location-->
-            <input type="radio" id="one" name="test" value="ONE">
-            <div class="scheduleBlock horizontal">
-                <div class="topAlign horizontal"><!--Time and location details-->
-                    <div class="info"><!--Location details-->
-                        <p>Location name</p>
-                        <p>Street address, State</p>
-                        <label for="one"></label>
-                        </label>
-                    </div>
-                </div>
-                <div class="radioImg"></div>
+    <div class="wrapper">
+        <!-- Camera Screen -->
+        <div id="camera-screen" class="active">
+            <div class="camera-container">
+                <video id="video" autoplay playsinline></video>
+                <canvas id="canvas"></canvas>
             </div>
-            <input type="radio" id="two" name="test" value="TWO">
-            <div class="scheduleBlock horizontal">
-                <div class="topAlign horizontal"><!--Time and location details-->
-                    <div class="info"><!--Location details-->
-                        <label for="two">
-                        </label>
-                        <p>Location name</p>
-                        <p>Street address, State</p>
-                    </div>
-                </div>
-                <div class="radioImg"></div>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="capturePhoto()">CAPTURE</button>
+            </div>
+        </div>
+
+        <!-- Loading Screen -->
+        <div id="loading-screen">
+            <div class="loading-spinner"></div>
+            <p style="margin-top: 20px;">PROCESSING...</p>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen">
+            <div class="polaroid-container">
+                <canvas id="polaroid-canvas"></canvas>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="retakePhoto()"><img src="img/refresh.svg" alt="" width="24"
+                        height="24"></button>
+                <button class="btn btn-success" onclick="downloadPhoto()">DOWNLOAD<img src="img/download.svg" alt=""
+                        width="24" height="24"></button>
             </div>
         </div>
     </div>
+    <footer>
+        <p><a href="https://www.instagram.com/yeonseo.dsgn?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Created
+                by
+                @yeonseo.dsgn</a></p>
+
+        <img src="img/yslogo.svg" alt="" height="40">
+    </footer>
+    <script src="camera.js"></script>
 </body>
 
 </html>
