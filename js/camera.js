@@ -52,39 +52,27 @@ function capturePhoto() {
     const vw = video.videoWidth;
     const vh = video.videoHeight;
 
-    if (!vw || !vh) {
-        console.warn("Video not ready");
-        return;
-    }
+    if (!vw || !vh) return;
 
-    // Force portrait canvas
+    // First canvas: draw with filter, no transforms
     canvas.width = 362;
     canvas.height = 480;
 
-    ctx.save();
+    // Apply filter (works because no transforms yet)
+    ctx.filter = "saturate(0%) contrast(1.2)";
 
-    // Mirror horizontally
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
-
-    // Apply filter AFTER transform
-    ctx.filter = "none";
-    ctx.filter = "saturate(0%) contrast(1.5)";
-
-    // Calculate cropping to maintain correct ratio
+    // Crop to portrait
     const videoRatio = vw / vh;
     const canvasRatio = canvas.width / canvas.height;
 
     let sx, sy, sw, sh;
 
     if (videoRatio > canvasRatio) {
-        // Video is wider → crop sides
         sh = vh;
         sw = vh * canvasRatio;
         sx = (vw - sw) / 2;
         sy = 0;
     } else {
-        // Video is taller → crop top/bottom
         sw = vw;
         sh = vw / canvasRatio;
         sx = 0;
@@ -93,7 +81,21 @@ function capturePhoto() {
 
     ctx.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
 
-    ctx.restore();
+    // SECOND CANVAS: mirror the filtered image
+    const mirrorCanvas = document.createElement("canvas");
+    const mirrorCtx = mirrorCanvas.getContext("2d");
+
+    mirrorCanvas.width = canvas.width;
+    mirrorCanvas.height = canvas.height;
+
+    mirrorCtx.translate(mirrorCanvas.width, 0);
+    mirrorCtx.scale(-1, 1);
+
+    mirrorCtx.drawImage(canvas, 0, 0);
+
+    // Copy mirrored result back into main canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(mirrorCanvas, 0, 0);
 
     showScreen('loading-screen');
     setTimeout(() => {
@@ -101,7 +103,6 @@ function capturePhoto() {
         showScreen('result-screen');
     }, 300);
 }
-
 
 function createPolaroid() {
     // Wait for frame image to load before drawing
