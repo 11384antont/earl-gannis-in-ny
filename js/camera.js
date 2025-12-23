@@ -59,8 +59,7 @@ function capturePhoto() {
     canvas.height = 480;
 
     // Apply filter (works because no transforms yet)
-    ctx.filter = "none";
-    ctx.filter = "saturate(0%) contrast(1.2)";
+    ctx.filter = "grayscale(100%)";
 
     // Crop to portrait
     const videoRatio = vw / vh;
