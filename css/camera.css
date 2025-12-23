@@ -4,6 +4,12 @@
     /* box-sizing: border-box; */
 }
 
+/* Prevent image blurriness */
+img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
 p,
 a {
     font-family: "Roboto Mono", monospace;
