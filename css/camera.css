@@ -1,10 +1,8 @@
 * {
     margin: 0;
     padding: 0;
-    /* box-sizing: border-box; */
 }
 
-/* Prevent image blurriness */
 img {
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
@@ -24,11 +22,7 @@ body {
     font-style: normal;
     background-color: #E7E7E7;
     color: #343434;
-    /* padding: 20px; */
     margin: 0 auto;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
 }
 
 a {
@@ -46,16 +40,13 @@ footer {
     align-items: center;
 }
 
-/* Display screen */
 @media screen and (min-width: 1200px) {
     .wrapper {
         max-width: 1200px;
         margin: 0 auto;
-        /* Optional, but good practice for clarity */
     }
 }
 
-/* Tablet */
 @media screen and (min-width: 768px)and (max-width: 1199px) {
     .wrapper {
         max-width: 768px;
@@ -63,7 +54,6 @@ footer {
     }
 }
 
-/* Mobile */
 @media screen and (max-width: 767px) {
     .wrapper {
         max-width: 100%;
@@ -90,6 +80,9 @@ footer {
     background: #343434;
     padding: 24px;
     z-index: -2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #video {
@@ -181,14 +174,28 @@ footer {
     position: relative;
     display: inline-block;
     background: white;
-    /* padding: 20px; */
-    /* border-radius: 10px; */
 }
 
 #polaroid-canvas {
     display: block;
-    width: 410px;
-    height: 600px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Desktop: fixed size */
+@media screen and (min-width: 768px) {
+    #polaroid-canvas {
+        width: 410px;
+        height: 600px;
+    }
+}
+
+/* Mobile: responsive */
+@media screen and (max-width: 767px) {
+    #polaroid-canvas {
+        width: 100%;
+        max-width: 410px;
+    }
 }
 
 .button-group {
