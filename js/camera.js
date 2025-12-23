@@ -36,12 +36,6 @@ async function startCamera() {
     }
 }
 
-/* Prevent image blurriness */
-        img {
-    image - rendering: -webkit - optimize - contrast;
-    image - rendering: crisp - edges;
-}
-
 // Load frame image
 async function loadFrameImage() {
     return new Promise((resolve, reject) => {
