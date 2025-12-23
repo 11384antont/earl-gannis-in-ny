@@ -49,35 +49,58 @@ async function loadFrameImage() {
 }
 
 function capturePhoto() {
-    if (video.videoWidth === 0 || video.videoHeight === 0) {
-        console.warn("Video not ready yet"); return;
-    }
-    // Get actual video dimensions
-    const videoWidth = video.videoWidth;
-    const videoHeight = video.videoHeight;
+    const vw = video.videoWidth;
+    const vh = video.videoHeight;
 
-    // Set canvas to match video's actual dimensions
-    canvas.width = videoWidth;
-    canvas.height = videoHeight;
+    if (!vw || !vh) {
+        console.warn("Video not ready");
+        return;
+    }
+
+    // Force portrait canvas
+    canvas.width = 362;
+    canvas.height = 480;
 
     ctx.save();
-    // Mirror horizontally 
+
+    // Mirror horizontally
+    ctx.translate(canvas.width, 0);
     ctx.scale(-1, 1);
-    // Apply filter 
+
+    // Apply filter AFTER transform
     ctx.filter = "saturate(0%) contrast(1.5)";
-    // Draw mirrored video 
-    ctx.drawImage(video, -videoWidth, 0, videoWidth, videoHeight);
+
+    // Calculate cropping to maintain correct ratio
+    const videoRatio = vw / vh;
+    const canvasRatio = canvas.width / canvas.height;
+
+    let sx, sy, sw, sh;
+
+    if (videoRatio > canvasRatio) {
+        // Video is wider → crop sides
+        sh = vh;
+        sw = vh * canvasRatio;
+        sx = (vw - sw) / 2;
+        sy = 0;
+    } else {
+        // Video is taller → crop top/bottom
+        sw = vw;
+        sh = vw / canvasRatio;
+        sx = 0;
+        sy = (vh - sh) / 2;
+    }
+
+    ctx.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+
     ctx.restore();
 
-    // Show loading screen
-    setTimeout(() => showScreen('loading-screen'), 50);
-
-    // Simulate brief loading and then show result
+    showScreen('loading-screen');
     setTimeout(() => {
         createPolaroid();
         showScreen('result-screen');
-    }, 500);
+    }, 300);
 }
+
 
 function createPolaroid() {
     // Wait for frame image to load before drawing
