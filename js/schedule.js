@@ -90,33 +90,43 @@ function renderSchedule(data) {
 
         wrapper.appendChild(scheduleList);
 
-        // Download button (optional - you can add a download_image column to CSV if needed)
+        // Download button
         const downloadDiv = document.createElement('div');
         downloadDiv.className = 'leftAlign';
 
-        // Check if there's a download_image column in the CSV
         const firstItem = groupedByDate[date][0];
-        if (firstItem.download_image) {
-            downloadDiv.innerHTML = `
-                        <a href="${firstItem.download_image}" download>
-                            <div class="btn">
-                                <p>DOWNLOAD</p>
-                                <img src="img/icon/download.svg" alt="" width="24" height="24">
-                            </div>
-                        </a>
-                    `;
-        } else {
-            // Fallback: construct path from date
-            const dateFormatted = date.replace(/\s+/g, '').replace(/th|st|nd|rd/g, '');
-            downloadDiv.innerHTML = `
-                        <a href="img/Schedule-${dateFormatted}.png" download="Schedule-${dateFormatted}">
-                            <div class="btn">
-                                <p>DOWNLOAD</p>
-                                <img src="img/icon/download.svg" alt="" width="24" height="24">
-                            </div>
-                        </a>
-                    `;
-        }
+        const downloadBtn = document.createElement('div');
+        downloadBtn.className = 'btn';
+        downloadBtn.innerHTML = `
+                    <p>DOWNLOAD</p>
+                    <img src="img/icon/download.svg" alt="" width="24" height="24">
+                `;
+
+        downloadBtn.addEventListener('click', function () {
+            const imageUrl = firstItem.download_image || `img/Schedule-${date.replace(/\s+/g, '').replace(/th|st|nd|rd/g, '')}.png`;
+
+            // Force download with proper filename
+            fetch(imageUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = `Schedule-${date.replace(/\s+/g, '').replace(/th|st|nd|rd/g, '')}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                })
+                .catch(err => {
+                    console.error('Download failed:', err);
+                    // Fallback to direct link
+                    window.open(imageUrl, '_blank');
+                });
+        });
+
+        downloadDiv.appendChild(downloadBtn);
         wrapper.appendChild(downloadDiv);
 
         container.appendChild(wrapper);
