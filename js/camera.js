@@ -15,6 +15,10 @@ frameImage.src = 'img/polaroidFrame.png';
 
 // Start camera
 async function startCamera() {
+    video.onloadedmetadata = () => {
+        video.play();
+    };
+
     try {
         stream = await navigator.mediaDevices.getUserMedia({
             video: {
@@ -45,6 +49,9 @@ async function loadFrameImage() {
 }
 
 function capturePhoto() {
+    if (video.videoWidth === 0 || video.videoHeight === 0) {
+        console.warn("Video not ready yet"); return;
+    }
     // Get actual video dimensions
     const videoWidth = video.videoWidth;
     const videoHeight = video.videoHeight;
@@ -53,18 +60,8 @@ function capturePhoto() {
     canvas.width = videoWidth;
     canvas.height = videoHeight;
 
-    // Save the current context state
-    ctx.save();
-
-    // Flip the canvas horizontally
-    // ctx.scale(-1, 1);
-    // ctx.filter = "saturate(0%) contrast(1.5)";
-
     // Draw the video frame (flipped) at actual size
-    ctx.drawImage(video, -videoWidth, 0, videoWidth, videoHeight);
-
-    // Restore the context
-    ctx.restore();
+    ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
 
     // Show loading screen
     showScreen('loading-screen');
