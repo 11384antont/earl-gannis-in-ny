@@ -59,6 +59,7 @@ function capturePhoto() {
     canvas.height = 480;
 
     // Apply filter (works because no transforms yet)
+    ctx.filter = "none";
     ctx.filter = "saturate(0%) contrast(1.2)";
 
     // Crop to portrait
