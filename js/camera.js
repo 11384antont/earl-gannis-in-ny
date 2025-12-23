@@ -59,7 +59,7 @@ function capturePhoto() {
 
     // Flip the canvas horizontally
     ctx.scale(-1, 1);
-    ctx.filter = "grayscale(100%) contrast(1.5)";
+    ctx.filter = "saturate(0%) contrast(1.5)";
 
     // Draw the video frame (flipped) at actual size
     ctx.drawImage(video, -videoWidth, 0, videoWidth, videoHeight);
