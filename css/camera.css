@@ -93,11 +93,28 @@ footer {
 }
 
 #video {
-    width: 362px;
-    height: 480px;
-    filter: grayscale(100%);
+    max-width: 100%;
+    height: auto;
+    filter: grayscale(100%) contrast(1.5);
     background: #000;
     transform: scaleX(-1);
+}
+
+/* Desktop: fixed size */
+@media screen and (min-width: 768px) {
+    #video {
+        width: 362px;
+        height: 480px;
+    }
+}
+
+/* Mobile: responsive */
+@media screen and (max-width: 767px) {
+    #video {
+        width: 100%;
+        max-width: 362px;
+        aspect-ratio: 362 / 480;
+    }
 }
 
 #canvas {

@@ -12,6 +12,7 @@ polaroidCanvas.height = 600;
 let stream = null;
 const frameImage = new Image();
 frameImage.src = 'img/polaroidFrame.png';
+
 // Start camera
 async function startCamera() {
     try {
@@ -45,15 +46,23 @@ async function loadFrameImage() {
 }
 
 function capturePhoto() {
+    // Get actual video dimensions
+    const videoWidth = video.videoWidth;
+    const videoHeight = video.videoHeight;
+
+    // Set canvas to match video's actual dimensions
+    canvas.width = videoWidth;
+    canvas.height = videoHeight;
+
     // Save the current context state
     ctx.save();
 
     // Flip the canvas horizontally
     ctx.scale(-1, 1);
-    ctx.filter = "grayscale(1) contrast(1.5)";
+    ctx.filter = "grayscale(100%) contrast(1.5)";
 
-    // Draw the video frame (flipped)
-    ctx.drawImage(video, -362, 0, 362, 480);
+    // Draw the video frame (flipped) at actual size
+    ctx.drawImage(video, -videoWidth, 0, videoWidth, videoHeight);
 
     // Restore the context
     ctx.restore();
@@ -79,10 +88,18 @@ function createPolaroid() {
     polaroidCtx.fillStyle = 'white';
     polaroidCtx.fillRect(0, 0, 410, 600);
 
-    // Draw the captured photo in the center (with some margin for polaroid effect)
-    const photoX = (410 - 362) / 2;
-    const photoY = 24;
-    polaroidCtx.drawImage(canvas, photoX, photoY, 362, 480);
+    // Calculate scaling to fit captured photo into 362x480 space
+    const targetWidth = 362;
+    const targetHeight = 480;
+    const scale = Math.min(targetWidth / canvas.width, targetHeight / canvas.height);
+    const scaledWidth = canvas.width * scale;
+    const scaledHeight = canvas.height * scale;
+
+    // Center the photo
+    const photoX = (410 - scaledWidth) / 2;
+    const photoY = 24 + (targetHeight - scaledHeight) / 2;
+
+    polaroidCtx.drawImage(canvas, photoX, photoY, scaledWidth, scaledHeight);
 
     // Draw the frame on top
     polaroidCtx.drawImage(frameImage, 0, 0, 410, 600);
