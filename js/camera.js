@@ -11,7 +11,7 @@ polaroidCanvas.height = 600;
 
 let stream = null;
 const frameImage = new Image();
-frameImage.src = 'img/polaroidFrame.png';
+frameImage.src = 'img/polaroidFrame.svg';
 
 // Start camera
 async function startCamera() {
@@ -125,32 +125,36 @@ function capturePhoto() {
 
 
 function createPolaroid() {
-    // Wait for frame image to load before drawing
-    if (!frameImage.complete) {
-        frameImage.onload = () => createPolaroid();
-        return;
-    }
+    const SCALE = 2; // Try 3 if you want even sharper
 
-    // Draw white background
+    polaroidCanvas.width = 410 * SCALE;
+    polaroidCanvas.height = 600 * SCALE;
+
+    polaroidCtx.save();
+    polaroidCtx.scale(SCALE, SCALE);
+
+    // White background
     polaroidCtx.fillStyle = 'white';
     polaroidCtx.fillRect(0, 0, 410, 600);
 
-    // Calculate scaling to fit captured photo into 362x480 space
+    // Fit the photo inside the frame
     const targetWidth = 362;
     const targetHeight = 480;
     const scale = Math.min(targetWidth / canvas.width, targetHeight / canvas.height);
     const scaledWidth = canvas.width * scale;
     const scaledHeight = canvas.height * scale;
 
-    // Center the photo
     const photoX = (410 - scaledWidth) / 2;
     const photoY = 24 + (targetHeight - scaledHeight) / 2;
 
     polaroidCtx.drawImage(canvas, photoX, photoY, scaledWidth, scaledHeight);
 
-    // Draw the frame on top
+    // Draw the frame SVG at full resolution
     polaroidCtx.drawImage(frameImage, 0, 0, 410, 600);
+
+    polaroidCtx.restore();
 }
+
 
 function retakePhoto() {
     showScreen('camera-screen');
