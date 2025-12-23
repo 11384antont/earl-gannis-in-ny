@@ -86,11 +86,12 @@ footer {
 }
 
 #video {
-    max-width: 100%;
-    height: auto;
-    filter: grayscale(100%) contrast(1.5);
+    /* max-width: 100%;
+    height: auto; */
+    filter: saturate(0%) contrast(1.5);
     background: #000;
     transform: scaleX(-1);
+    object-fit: cover;
 }
 
 /* Desktop: fixed size */

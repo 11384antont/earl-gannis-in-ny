@@ -19,8 +19,7 @@ async function startCamera() {
         stream = await navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: 'user',
-                width: { ideal: 362 },
-                height: { ideal: 480 }
+                aspectRatio: 362 / 480
             }
         });
         video.srcObject = stream;
@@ -58,8 +57,8 @@ function capturePhoto() {
     ctx.save();
 
     // Flip the canvas horizontally
-    ctx.scale(-1, 1);
-    ctx.filter = "saturate(0%) contrast(1.5)";
+    // ctx.scale(-1, 1);
+    // ctx.filter = "saturate(0%) contrast(1.5)";
 
     // Draw the video frame (flipped) at actual size
     ctx.drawImage(video, -videoWidth, 0, videoWidth, videoHeight);
