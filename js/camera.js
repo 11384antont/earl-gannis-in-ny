@@ -60,11 +60,17 @@ function capturePhoto() {
     canvas.width = videoWidth;
     canvas.height = videoHeight;
 
-    // Draw the video frame (flipped) at actual size
-    ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
+    ctx.save();
+    // Mirror horizontally 
+    ctx.scale(-1, 1);
+    // Apply filter 
+    ctx.filter = "saturate(0%) contrast(1.5)";
+    // Draw mirrored video 
+    ctx.drawImage(video, -videoWidth, 0, videoWidth, videoHeight);
+    ctx.restore();
 
     // Show loading screen
-    showScreen('loading-screen');
+    setTimeout(() => showScreen('loading-screen'), 50);
 
     // Simulate brief loading and then show result
     setTimeout(() => {
