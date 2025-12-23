@@ -88,7 +88,7 @@ footer {
 #video {
     /* max-width: 100%;
     height: auto; */
-    filter: saturate(0%) contrast(1.5);
+    filter: saturate(0%) contrast(1.2);
     background: #000;
     transform: scaleX(-1);
     object-fit: cover;
