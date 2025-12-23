@@ -68,6 +68,7 @@ function capturePhoto() {
     ctx.scale(-1, 1);
 
     // Apply filter AFTER transform
+    ctx.filter = "none";
     ctx.filter = "saturate(0%) contrast(1.5)";
 
     // Calculate cropping to maintain correct ratio
