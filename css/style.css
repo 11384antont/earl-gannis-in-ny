@@ -26,7 +26,6 @@ body {
     font-style: normal;
     background-color: #E7E7E7;
     color: #343434;
-    /* padding: 20px; */
     margin: 0 auto;
 }
 
@@ -35,7 +34,6 @@ body {
     .wrapper {
         max-width: 1200px;
         margin: 0 auto;
-        /* Optional, but good practice for clarity */
     }
 }
 
@@ -59,7 +57,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
     flex-direction: column;
     gap: 20px;
 }
