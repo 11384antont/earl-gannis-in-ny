@@ -59,7 +59,7 @@ function capturePhoto() {
     canvas.height = 480;
 
     // Apply filter (works because no transforms yet)
-    ctx.filter = "grayscale(100%)";
+    ctx.filter = "saturate(0%) contrast(120%)";
 
     // Crop to portrait
     const videoRatio = vw / vh;
@@ -82,20 +82,20 @@ function capturePhoto() {
     ctx.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
 
     // SECOND CANVAS: mirror the filtered image
-    const mirrorCanvas = document.createElement("canvas");
-    const mirrorCtx = mirrorCanvas.getContext("2d");
+    // const mirrorCanvas = document.createElement("canvas");
+    // const mirrorCtx = mirrorCanvas.getContext("2d");
 
-    mirrorCanvas.width = canvas.width;
-    mirrorCanvas.height = canvas.height;
+    // mirrorCanvas.width = canvas.width;
+    // mirrorCanvas.height = canvas.height;
 
-    mirrorCtx.translate(mirrorCanvas.width, 0);
-    mirrorCtx.scale(-1, 1);
+    // mirrorCtx.translate(mirrorCanvas.width, 0);
+    // mirrorCtx.scale(-1, 1);
 
-    mirrorCtx.drawImage(canvas, 0, 0);
+    // mirrorCtx.drawImage(canvas, 0, 0);
 
     // Copy mirrored result back into main canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(mirrorCanvas, 0, 0);
+    // ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // ctx.drawImage(mirrorCanvas, 0, 0);
 
     showScreen('loading-screen');
     setTimeout(() => {
