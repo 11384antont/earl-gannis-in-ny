@@ -54,25 +54,24 @@ function capturePhoto() {
 
     if (!vw || !vh) return;
 
-    // First canvas: draw with filter, no transforms
+    // Force portrait canvas
     canvas.width = 362;
     canvas.height = 480;
 
-    // Apply filter (works because no transforms yet)
-    ctx.filter = "saturate(0%) contrast(120%)";
-
-    // Crop to portrait
+    // ---- STEP 1: Draw the video normally (no transforms, no filters) ----
     const videoRatio = vw / vh;
     const canvasRatio = canvas.width / canvas.height;
 
     let sx, sy, sw, sh;
 
     if (videoRatio > canvasRatio) {
+        // Video is wider → crop sides
         sh = vh;
         sw = vh * canvasRatio;
         sx = (vw - sw) / 2;
         sy = 0;
     } else {
+        // Video is taller → crop top/bottom
         sw = vw;
         sh = vw / canvasRatio;
         sx = 0;
@@ -81,28 +80,49 @@ function capturePhoto() {
 
     ctx.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
 
-    // SECOND CANVAS: mirror the filtered image
-    // const mirrorCanvas = document.createElement("canvas");
-    // const mirrorCtx = mirrorCanvas.getContext("2d");
+    // ---- STEP 2: Apply grayscale filter manually (mobile-safe) ----
+    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let data = imageData.data;
 
-    // mirrorCanvas.width = canvas.width;
-    // mirrorCanvas.height = canvas.height;
+    for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
 
-    // mirrorCtx.translate(mirrorCanvas.width, 0);
-    // mirrorCtx.scale(-1, 1);
+        // Perceived luminance grayscale
+        const gray = 0.299 * r + 0.587 * g + 0.114 * b;
 
-    // mirrorCtx.drawImage(canvas, 0, 0);
+        data[i] = gray;
+        data[i + 1] = gray;
+        data[i + 2] = gray;
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+
+    // ---- STEP 3: Mirror the final filtered image ----
+    const mirrorCanvas = document.createElement("canvas");
+    const mirrorCtx = mirrorCanvas.getContext("2d");
+
+    mirrorCanvas.width = canvas.width;
+    mirrorCanvas.height = canvas.height;
+
+    mirrorCtx.translate(mirrorCanvas.width, 0);
+    mirrorCtx.scale(-1, 1);
+
+    mirrorCtx.drawImage(canvas, 0, 0);
 
     // Copy mirrored result back into main canvas
-    // ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // ctx.drawImage(mirrorCanvas, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(mirrorCanvas, 0, 0);
 
+    // ---- STEP 4: Continue your flow ----
     showScreen('loading-screen');
     setTimeout(() => {
         createPolaroid();
         showScreen('result-screen');
     }, 300);
 }
+
 
 function createPolaroid() {
     // Wait for frame image to load before drawing
